@@ -46,8 +46,8 @@ function showAnswer() {
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player("player", {
-        height: "128",
-        width: "256",
+        height: "1",
+        width: "1",
         videoId: "",
         playerVars: {
             autoplay: 0,
