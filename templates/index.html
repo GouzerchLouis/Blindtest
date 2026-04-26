@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Blind Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <h1>🎵 Blind Test</h1>
+
+    <div id="game">
+        <button id="play-btn">Jouer</button>
+        <button id="next-btn">Musique suivante</button>
+        <button onclick="showAnswer()">Voir réponse</button>
+
+        <p id="status">Appuie sur jouer</p>
+
+        <p id="answer" style="display: none;"></p>
+    </div>
+
+    <div id="player"></div>
+    <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script defer src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
