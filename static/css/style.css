@@ -6,8 +6,12 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* 1. On remplace la couleur de fond unie par l'image */
 body {
-    background-color: #0d0e15;
+    background-image: url('../fond_ecran_bt.jpg'); /* Remplace par le nom de ton image dans static/ */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: #ffffff;
     min-height: 100vh;
     display: flex;
@@ -17,25 +21,43 @@ body {
     position: relative;
 }
 
-/* Ambiance lumineuse en arrière-plan */
-.background-glow {
+/* 2. On crée une couche de flou par-dessus l'image */
+body::before {
+    content: "";
     position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(122, 74, 240, 0.15) 0%, rgba(0,0,0,0) 70%);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit; /* Utilise la même image */
+    filter: blur(5px); /* Ajuste la valeur (10px, 20px...) pour plus ou moins de flou */
+    z-index: -1;
+    transform: scale(1.1); /* Évite les bords blancs dus au flou */
+}
+
+/* 3. Optionnel : un léger voile sombre pour mieux lire le texte */
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Voile noir à 40% d'opacité */
+    z-index: -1;
+}
+
+/* 4. Supprime ou commente ta classe .background-glow actuelle */
+.background-glow {
+    display: none;
 }
 
 /* Conteneur principal (Effet de verre poli) */
 .container {
     background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px rgba(255, 255, 255, 0.08) solid;
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 2px rgba(255, 255, 255, 0.08) solid;
     padding: 3rem;
     border-radius: 24px;
     width: 90%;
@@ -90,7 +112,7 @@ h1 span {
 
 #answer {
     background: rgba(0, 255, 136, 0.1);
-    border: 1px solid rgba(0, 255, 136, 0.3);
+    border: 2px solid rgba(0, 255, 136, 0.3);
     color: #00ff88;
     padding: 1rem 1.5rem;
     border-radius: 12px;
