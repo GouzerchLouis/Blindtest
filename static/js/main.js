@@ -11,10 +11,12 @@ let currentSong = null;
 let player;
 let playerReady = false;
 
+let countdownInterval = null;
+let autoNextTimeout = null;
 
 playBtn.addEventListener("click", () => {
     if (playerReady && currentSong) {
-        player.seekTo(currentSong.start, true); // 🔥 force le bon timestamp
+        player.seekTo(currentSong.start, true);
         player.playVideo();
     }
 });
@@ -46,18 +48,6 @@ async function fetchRandomSong() {
     }
 }
 
-function showAnswer() {
-    if (currentSong) {
-        clearInterval(countdownInterval);
-
-        answer.textContent = currentSong.answer;
-        answer.style.display = "block";
-        status.textContent = "Réponse révélée !";
-    }
-    if (autoNextToggle.checked) {
-        startAutoNextCountdown();
-    }
-}
 
 function showAnswer() {
     if (currentSong) {
@@ -73,6 +63,7 @@ function showAnswer() {
     }
 }
 
+
 function startReflectionCountdown() {
     let n = parseInt(timeNInput.value) || 15;
     status.textContent = `Réponse dans ${n}s`;
@@ -87,6 +78,26 @@ function startReflectionCountdown() {
         }
     }, 1000);
 }
+
+
+function startAutoNextCountdown() {
+    let m = parseInt(timeMInput.value) || 5;
+    status.textContent = `Prochain morceau dans ${m}s...`;
+
+    countdownInterval = setInterval(() => {
+        m--;
+        if (m > 0) {
+            status.textContent = `Prochain morceau dans ${m}s...`;
+        } else {
+            clearInterval(countdownInterval);
+        }
+    }, 1000);
+
+    autoNextTimeout = setTimeout(() => {
+        fetchRandomSong();
+    }, (parseInt(timeMInput.value) || 5) * 1000);
+}
+
 
 function resetTimers() {
     clearInterval(countdownInterval);
