@@ -10,8 +10,20 @@ def load_songs():
 
 songs = load_songs()
 
+played_songs = []
 def get_random_song():
-    return random.choice(songs)
+    global played_songs
+    available_songs = [s for s in songs if s.get("id") not in played_songs]
+
+    if not available_songs:
+        played_songs= []
+        available_songs = songs
+
+    chosen_song = random.choice(available_songs)
+
+    played_songs.append(chosen_song.get("id"))
+
+    return chosen_song
 
 @app.route("/")
 def home():

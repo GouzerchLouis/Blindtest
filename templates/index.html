@@ -9,6 +9,21 @@
 
     <h1>🎵 Blind Test</h1>
 
+    <div id="settings" style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; display: inline-block; text-align: left;">
+        <h3 style="margin-top: 0;">⏱️ Réglages</h3>
+        <label>
+            Temps de réflexion (n) :
+            <input type="number" id="time-n" value="15" min="1" style="width: 45px;"> secondes
+        </label>
+        <br><br>
+        <label>
+            <input type="checkbox" id="auto-next-toggle"> Passer automatiquement à la suite
+        </label>
+        <span id="auto-next-delay">
+            après <input type="number" id="time-m" value="5" min="1" style="width: 45px;">s
+        </span>
+    </div>
+
     <div id="game">
         <button id="play-btn">Jouer</button>
         <button id="next-btn">Musique suivante</button>

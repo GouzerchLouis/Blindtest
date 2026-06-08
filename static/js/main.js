@@ -3,6 +3,10 @@ const nextBtn = document.getElementById("next-btn");
 const status = document.getElementById("status");
 const answer = document.getElementById("answer");
 
+const timeNInput = document.getElementById("time-n");
+const autoNextToggle = document.getElementById("auto-next-toggle");
+const timeMInput = document.getElementById("time-m");
+
 let currentSong = null;
 let player;
 let playerReady = false;
@@ -21,14 +25,19 @@ nextBtn.addEventListener("click", () => {
 
 async function fetchRandomSong() {
     try {
+        resetTimers();
+
         const response = await fetch("/random");
         const data = await response.json();
 
         currentSong = data;
-        status.textContent = "Musique chargée !";
+
+        answer.style.display = "none";
+        answer.textContent = "";
 
         if (playerReady) {
             loadVideo(currentSong);
+            startReflectionCountdown();
         }
 
     } catch (error) {
@@ -39,9 +48,49 @@ async function fetchRandomSong() {
 
 function showAnswer() {
     if (currentSong) {
+        clearInterval(countdownInterval);
+
         answer.textContent = currentSong.answer;
         answer.style.display = "block";
+        status.textContent = "Réponse révélée !";
     }
+    if (autoNextToggle.checked) {
+        startAutoNextCountdown();
+    }
+}
+
+function showAnswer() {
+    if (currentSong) {
+        clearInterval(countdownInterval);
+
+        answer.textContent = currentSong.answer;
+        answer.style.display = "block";
+        status.textContent = "Réponse révélée !";
+
+        if (autoNextToggle.checked) {
+            startAutoNextCountdown();
+        }
+    }
+}
+
+function startReflectionCountdown() {
+    let n = parseInt(timeNInput.value) || 15;
+    status.textContent = `Réponse dans ${n}s`;
+
+    countdownInterval = setInterval(() => {
+        n--;
+        if (n <= 0) {
+            clearInterval(countdownInterval);
+            showAnswer();
+        } else {
+            status.textContent = `Écoute en cours... Réponse dans ${n}s`;
+        }
+    }, 1000);
+}
+
+function resetTimers() {
+    clearInterval(countdownInterval);
+    clearTimeout(autoNextTimeout);
 }
 
 function onYouTubeIframeAPIReady() {
