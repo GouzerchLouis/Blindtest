@@ -8,7 +8,6 @@
 
 /* 1. On remplace la couleur de fond unie par l'image */
 body {
-    background-image: url('../fond_ecran_bt.jpg'); /* Remplace par le nom de ton image dans static/ */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
