@@ -14,13 +14,6 @@ let playerReady = false;
 let countdownInterval = null;
 let autoNextTimeout = null;
 
-playBtn.addEventListener("click", () => {
-    if (playerReady && currentSong) {
-        player.seekTo(currentSong.start, true);
-        player.playVideo();
-    }
-});
-
 nextBtn.addEventListener("click", () => {
     fetchRandomSong();
 });

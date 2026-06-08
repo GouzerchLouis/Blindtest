@@ -2,39 +2,60 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Blind Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Blind Test Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
-    <h1>🎵 Blind Test</h1>
+    <div class="background-glow"></div>
 
-    <div id="settings" style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; display: inline-block; text-align: left;">
-        <h3 style="margin-top: 0;">⏱️ Réglages</h3>
-        <label>
-            Temps de réflexion (n) :
-            <input type="number" id="time-n" value="15" min="1" style="width: 45px;"> secondes
-        </label>
-        <br><br>
-        <label>
-            <input type="checkbox" id="auto-next-toggle"> Passer automatiquement à la suite
-        </label>
-        <span id="auto-next-delay">
-            après <input type="number" id="time-m" value="5" min="1" style="width: 45px;">s
-        </span>
-    </div>
+    <aside class="sidebar">
+        <h2>⚙️ Paramètres</h2>
 
-    <div id="game">
-        <button id="play-btn">Jouer</button>
-        <button id="next-btn">Musique suivante</button>
-        <button onclick="showAnswer()">Voir réponse</button>
+        <div class="setting-group">
+            <label for="time-n">Temps de réflexion (sec) :</label>
+            <input type="number" id="time-n" min="5" max="60" value="15" class="styled-input">
+        </div>
 
-        <p id="status">Appuie sur jouer</p>
+        <div class="setting-group">
+            <label for="auto-next-toggle" class="checkbox-label">
+                <input type="checkbox" id="auto-next-toggle" checked>
+                <span class="custom-checkbox"></span>
+                Passage auto.
+            </label>
+        </div>
 
-        <p id="answer" style="display: none;"></p>
+        <div class="setting-group">
+            <label for="time-m">Délai avant la suite (sec) :</label>
+            <input type="number" id="time-m" min="1" max="20" value="5" class="styled-input">
+        </div>
+    </aside>
+
+    <div class="container">
+        <h1><span>🎵</span> BLIND TEST</h1>
+
+        <div id="game">
+            <div class="status-box">
+                <p id="status">Appuie sur jouer pour commencer</p>
+            </div>
+
+            <div class="answer-box">
+                <p id="answer" style="display: none;"></p>
+            </div>
+
+            <div class="button-group">
+                <button id="next-btn" class="btn-secondary">Musique suivante</button>
+                <button onclick="showAnswer()" class="btn-accent">Voir la réponse</button>
+            </div>
+        </div>
     </div>
 
     <div id="player"></div>
+
     <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script defer src="https://www.youtube.com/iframe_api"></script>
 </body>
